@@ -22,6 +22,8 @@ private slots:
 
     void on_listWidget_itemSelectionChanged();
 
+    void on_refresh_pressed();
+
 private:
     void checkVagrant();
     Ui::VagrantUp *ui;

@@ -40,7 +40,6 @@ VagrantUp::~VagrantUp()
 
 void VagrantUp::on_add_pressed()
 {
-    bool ok;
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Vagrantfile"),"~/",tr("Vagrantfile (Vagrantfile)"));
 
@@ -48,7 +47,8 @@ void VagrantUp::on_add_pressed()
 
     QFile file(fileName);
 
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
 
     QTextStream in(&file);
 
@@ -83,4 +83,9 @@ void VagrantUp::on_listWidget_itemSelectionChanged()
         ui->remove->setEnabled(true);
     else
         ui->remove->setEnabled(false);
+}
+
+void VagrantUp::on_refresh_pressed()
+{
+    checkVagrant();
 }
