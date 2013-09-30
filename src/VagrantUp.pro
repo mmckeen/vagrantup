@@ -12,11 +12,11 @@ TARGET = VagrantUp
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        vagrantup.cpp \
-        vagrantfile.cpp
+SOURCES += 'source/main.cpp' \
+        'source/vagrantup.cpp' \
+        'source/vagrantfile.cpp'
 
-HEADERS  += vagrantup.h \
-         vagrantfile.h
+HEADERS  += 'source/vagrantup.h' \
+         'source/vagrantfile.h'
 
-FORMS    += vagrantup.ui
+FORMS    += 'source/vagrantup.ui'
