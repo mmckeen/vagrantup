@@ -35,6 +35,7 @@ private:
     void checkVagrant();
     void loadSettings();
     void processFilename(QString filename);
+    void updateSettings();
     void bring_up_vagrantfiles(QList<QListWidgetItem*>* vagrantFiles);
     QSettings *settings;
     QStringList *vagrantFilenames;

@@ -77,6 +77,26 @@ void VagrantUp::bring_up_vagrantfiles(QList<QListWidgetItem*>* vagrantFiles)
 
 }
 
+void VagrantUp::updateSettings()
+{
+    // create of string of comma seperated values to serialize the list of vagrantfiles
+    // it is hacky, but it works just fine
+
+    QString serializedFilenames;
+
+    for (int i = 0; i < vagrantFilenames->length(); i++)
+    {
+        serializedFilenames.append(vagrantFilenames->at(i));
+
+        if (i < vagrantFilenames->length() - 1 ) {
+            serializedFilenames.append(QString(","));
+        }
+    }
+
+    settings->setValue("vagrantfiles",settings->value("vagrantfiles",serializedFilenames));
+
+}
+
 void VagrantUp::processFilename(QString filename)
 {
     QString debugmsg = "Processing filename '" + filename +"'";
@@ -111,21 +131,7 @@ void VagrantUp::processFilename(QString filename)
     ui->listWidget->addItem(enviroName);
     vagrantFilenames->append(filename);
 
-    // create of string of comma seperated values to serialize the list of vagrantfiles
-    // it is hacky, but it works just fine
-
-    QString serializedFilenames;
-
-    for (int i = 0; i < vagrantFilenames->length(); i++)
-    {
-        serializedFilenames.append(vagrantFilenames->at(i));
-
-        if (i < vagrantFilenames->length() - 1 ) {
-            serializedFilenames.append(QString(","));
-        }
-    }
-
-    settings->setValue("vagrantfiles",settings->value("vagrantfiles",serializedFilenames));
+    updateSettings();
 
 }
 
@@ -135,6 +141,7 @@ void VagrantUp::on_add_pressed()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Vagrantfile"),"~/",tr("Vagrantfile (Vagrantfile)"));
 
     processFilename(fileName);
+
 
 }
 
@@ -147,6 +154,10 @@ void VagrantUp::on_remove_pressed()
         ui->remove->setEnabled(false);
         ui->up->setEnabled(false);
     }
+
+    // TODO: Need to keep meta data in another data structure
+    // Will finish when Vagrantfile class is finished
+    vagrantFilenames->removeOne();
 }
 
 void VagrantUp::on_listWidget_itemSelectionChanged()
