@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        vagrantup.cpp
+        vagrantup.cpp \
+        vagrantfile.cpp
 
-HEADERS  += vagrantup.h
+HEADERS  += vagrantup.h \
+         vagrantfile.h
 
 FORMS    += vagrantup.ui
